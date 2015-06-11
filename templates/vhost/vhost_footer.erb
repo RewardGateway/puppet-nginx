@@ -1,12 +1,12 @@
-<% if @include_files -%>
+<%- if @include_files -%>
   <%- @include_files.each do |file| -%>
   include <%= file %>;
   <%- end -%>
-<% end -%>
+<%- end -%>
 <%# make sure that allow comes before deny by forcing the allow key (if it -%>
 <%# exists) to be first in the output order.  The hash keys also need to be -%>
 <%# sorted so that the ordering is stable. -%>
-<% if @vhost_cfg_append -%>
+<%- if @vhost_cfg_append -%>
   <%- @vhost_cfg_append.sort_by{ |k, v| k.to_s == 'allow' ? '' : k.to_s }.each do |key,value| -%>
     <%- if value.is_a?(Hash) -%>
       <%- value.sort_by {|k,v| k}.each do |subkey,subvalue| -%>
@@ -20,8 +20,8 @@
       <%- end -%>
     <%- end -%>
   <%- end -%>
-<% end -%>
-<% Array(@raw_append).each do |line| -%>
+<%- end -%>
+<%- Array(@raw_append).each do |line| -%>
   <%= line %>
-<% end -%>
+<%- end -%>
 }

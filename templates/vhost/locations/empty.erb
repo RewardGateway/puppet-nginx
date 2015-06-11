@@ -1,4 +1,4 @@
-<% if @location_custom_cfg -%>
+<%- if @location_custom_cfg -%>
   <%- @location_custom_cfg.sort_by {|k,v| k}.each do |key,value| -%>
     <%- if value.is_a?(Hash) -%>
       <%- value.sort_by {|k,v| k}.each do |subkey,subvalue| -%>
@@ -12,4 +12,4 @@
       <%- end -%>
     <%- end -%>
   <%- end -%>
-<% end -%>
+<%- end -%>

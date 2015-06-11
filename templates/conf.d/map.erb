@@ -1,15 +1,15 @@
 map <%= @string %> $<%= @name %> {
-<% if @hostnames -%>
+<%- if @hostnames -%>
   hostnames;
-<% end -%>
-<% if @default -%>
+<%- end -%>
+<%- if @default -%>
   default <%= @default %>;
-<% end -%>
+<%- end -%>
 
-<% if @mappings -%>
+<%- if @mappings -%>
   <%- field_width = @mappings.inject(0) { |l,(k,v)| k.size > l ? k.size : l } -%>
   <%- @mappings.sort_by{|k,v| k}.each do |key,value| -%>
   <%= sprintf("%-*s", field_width, key) %> <%= value %>;
   <%- end -%>
-<% end -%>
+<%- end -%>
 }
