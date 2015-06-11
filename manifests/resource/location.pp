@@ -315,6 +315,7 @@ define nginx::resource::location (
   }
 
   $vhost_sanitized = regsubst($vhost, ' ', '_', 'G')
+  $name_sanitized  = regsubst($name , ' ', '_', 'G')
   $config_file = "${::nginx::config::conf_dir}/sites-available/${vhost_sanitized}.conf"
 
   $location_sanitized_tmp = regsubst($location, '\/', '_', 'G')
@@ -375,4 +376,15 @@ define nginx::resource::location (
       order   => $ssl_priority,
     }
   }
+
+
+  if ($auth_basic_user_file != undef) {
+    #Generate htpasswd with provided file-locations
+    file { "${::nginx::config::conf_dir}/${vhost_sanitized}_${name_sanitized}_htpasswd":
+      ensure => $ensure_real,
+      mode   => '0644',
+      source => $auth_basic_user_file,
+    }
+  }
+
 }

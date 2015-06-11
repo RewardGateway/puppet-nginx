@@ -1,31 +1,32 @@
 
+  # <%= @name %>
   location <%= @location %> {
-<% if @internal -%>
+<%- if @internal -%>
     internal;
-<% end -%>
-<% if @mp4 -%>
+<%- end -%>
+<%- if @mp4 -%>
     mp4;
-<% end -%>
-<% if @flv -%>
+<%- end -%>
+<%- if @flv -%>
     flv;
-<% end -%>
-<% if @location_allow -%>
+<%- end -%>
+<%- if @location_allow -%>
     <%- @location_allow.each do |allow_rule| -%>
     allow <%= allow_rule %>;
     <%- end -%>
-<% end -%>
-<% if @location_deny -%>
+<%- end -%>
+<%- if @location_deny -%>
     <%- @location_deny.each do |deny_rule| -%>
     deny <%= deny_rule %>;
     <%- end -%>
-<% end -%>
-<% if @auth_basic -%>
-    auth_basic           "<%= @auth_basic %>";
-<%- end %>
+<%- end -%>
+<%- if @auth_basic -%>
+    auth_basic "<%= @auth_basic %>";
+<%- end -%>
 <%- if @auth_basic_user_file -%>
-    auth_basic_user_file <%= @auth_basic_user_file %>;
-<% end -%>
-<% if @location_custom_cfg_prepend -%>
+    auth_basic_user_file "<%= scope.lookupvar("nginx::config::conf_dir") %>/<%= @vhost_sanitized %>_<%= @name_sanitized %>_htpasswd";
+<%- end -%>
+<%- if @location_custom_cfg_prepend -%>
   <%- @location_custom_cfg_prepend.each do |key,value| -%>
     <%- if value.is_a?(Hash) -%>
       <%- value.sort_by {|k,v| k}.each do |subkey,subvalue| -%>
@@ -39,8 +40,8 @@
       <%- end -%>
     <%- end -%>
   <%- end -%>
-<% end -%>
-<% if @location_cfg_prepend -%>
+<%- end -%>
+<%- if @location_cfg_prepend -%>
   <%- @location_cfg_prepend.sort_by {|k,v| k}.each do |key,value| -%>
     <%- if value.is_a?(Hash) -%>
       <%- value.sort_by {|k,v| k}.each do |subkey,subvalue| -%>
@@ -54,15 +55,15 @@
       <%- end -%>
     <%- end -%>
   <%- end -%>
-<% end -%>
-<% if @raw_prepend && Array(@raw_prepend).size > 0 -%>
+<%- end -%>
+<%- if @raw_prepend && Array(@raw_prepend).size > 0 -%>
     <%- Array(@raw_prepend).each do |line| -%>
     <%= line %>
     <%- end -%>
-<% end -%>
+<%- end -%>
 <%- unless @rewrite_rules.nil? || @rewrite_rules.empty? -%>
 
     <%- @rewrite_rules.each do |rewrite_rule| -%>
     rewrite <%= rewrite_rule %>;
     <%- end -%>
-<% end -%>
+<%- end -%>
