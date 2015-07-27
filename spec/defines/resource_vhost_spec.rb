@@ -138,10 +138,10 @@ describe 'nginx::resource::vhost' do
           :match => %r'\s+auth_basic\s+"value";',
         },
         {
-          :title => 'should set auth_basic_user_file',
-          :attr  => 'auth_basic_user_file',
+          :title => 'should set auth_basic_user_list',
+          :attr  => 'auth_basic_user_list',
           :value => 'value',
-          :match => %r'\s+auth_basic_user_file\s+value;',
+          :match => %r'\s+auth_basic_user_list\s+value;',
         },
         {
           :title => 'should set the client_body_timeout',
@@ -459,10 +459,10 @@ describe 'nginx::resource::vhost' do
           :match => %r'\s+auth_basic\s+"value";',
         },
         {
-          :title => 'should set auth_basic_user_file',
-          :attr  => 'auth_basic_user_file',
+          :title => 'should set auth_basic_user_list',
+          :attr  => 'auth_basic_user_list',
           :value => 'value',
-          :match => %r'\s+auth_basic_user_file\s+"value";',
+          :match => %r'\s+auth_basic_user_list\s+"value";',
         },
         {
           :title => 'should set the client_body_timeout',

@@ -75,7 +75,7 @@
 #   [*proxy_set_body*]       - If defined, sets the body passed to the backend.
 #   [*auth_basic*]            - This directive includes testing name and password
 #     with HTTP Basic Authentication.
-#   [*auth_basic_user_file*]  - This directive sets the htpasswd filename for
+#   [*auth_basic_user_list*]  - This directive sets the htpasswd file content for
 #     the authentication realm.
 #   [*priority*]              - Location priority. Default: 500. User priority
 #     401-499, 501-599. If the priority is higher than the default priority,
@@ -166,7 +166,7 @@ define nginx::resource::location (
   $proxy_method         = undef,
   $proxy_set_body       = undef,
   $auth_basic           = undef,
-  $auth_basic_user_file = undef,
+  $auth_basic_user_list = undef,
   $rewrite_rules        = [],
   $priority             = 500,
   $mp4             = false,
@@ -281,8 +281,8 @@ define nginx::resource::location (
   if ($auth_basic != undef) {
     validate_string($auth_basic)
   }
-  if ($auth_basic_user_file != undef) {
-    validate_string($auth_basic_user_file)
+  if ($auth_basic_user_list != undef) {
+    validate_string($auth_basic_user_list)
   }
   if !is_integer($priority) {
     fail('$priority must be an integer.')
@@ -378,12 +378,12 @@ define nginx::resource::location (
   }
 
 
-  if ($auth_basic_user_file != undef) {
+  if ($auth_basic_user_list != undef) {
     #Generate htpasswd with provided file-locations
     file { "${::nginx::config::conf_dir}/${vhost_sanitized}_${name_sanitized}_htpasswd":
-      ensure => $ensure_real,
-      mode   => '0644',
-      source => $auth_basic_user_file,
+      ensure  => $ensure_real,
+      mode    => '0644',
+      content => $auth_basic_user_list,
     }
   }
 

@@ -155,10 +155,10 @@ describe 'nginx::resource::location' do
           :match => '    auth_basic           "value";',
         },
         {
-          :title => 'should set auth_basic_user_file',
-          :attr  => 'auth_basic_user_file',
+          :title => 'should set auth_basic_user_list',
+          :attr  => 'auth_basic_user_list',
           :value => 'value',
-          :match => '    auth_basic_user_file value;',
+          :match => '    auth_basic_user_list value;',
         },
       ].each do |param|
         context "when #{param[:attr]} is #{param[:value]}" do

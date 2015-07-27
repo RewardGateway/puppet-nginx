@@ -23,7 +23,7 @@
 <%- if @auth_basic -%>
     auth_basic "<%= @auth_basic %>";
 <%- end -%>
-<%- if @auth_basic_user_file -%>
+<%- if @auth_basic_user_list -%>
     auth_basic_user_file "<%= scope.lookupvar("nginx::config::conf_dir") %>/<%= @vhost_sanitized %>_<%= @name_sanitized %>_htpasswd";
 <%- end -%>
 <%- if @location_custom_cfg_prepend -%>

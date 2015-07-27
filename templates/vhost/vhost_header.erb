@@ -45,7 +45,7 @@ server {
   <%- if defined? @auth_basic -%>
   auth_basic "<%= @auth_basic %>";
   <%- end -%>
-  <%- if defined? @auth_basic_user_file -%>
+  <%- if defined? @auth_basic_user_list -%>
   auth_basic_user_file "<%= scope.lookupvar("nginx::config::conf_dir") %>/<%= @name_sanitized %>_htpasswd";
   <%- end -%>
 <%- end -%>

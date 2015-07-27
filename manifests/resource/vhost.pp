@@ -91,7 +91,7 @@
 #   [*proxy_set_body*]          - If defined, sets the body passed to the backend.
 #   [*auth_basic*]              - This directive includes testing name and
 #      password with HTTP Basic Authentication.
-#   [*auth_basic_user_file*]    - This directive sets the htpasswd filename for
+#   [*auth_basic_user_list*]    - This directive sets the htpasswd file content for
 #     the authentication realm.
 #   [*client_max_body_size*]    - This directive sets client_max_body_size.
 #   [*client_body_timeout*]     - Sets how long the server will wait for a
@@ -214,7 +214,7 @@ define nginx::resource::vhost (
   $location_custom_cfg_append   = undef,
   $try_files                    = undef,
   $auth_basic                   = undef,
-  $auth_basic_user_file         = undef,
+  $auth_basic_user_list         = undef,
   $client_body_timeout          = undef,
   $client_header_timeout        = undef,
   $client_max_body_size         = undef,
@@ -387,8 +387,8 @@ define nginx::resource::vhost (
   if ($auth_basic != undef) {
     validate_string($auth_basic)
   }
-  if ($auth_basic_user_file != undef) {
-    validate_string($auth_basic_user_file)
+  if ($auth_basic_user_list != undef) {
+    validate_string($auth_basic_user_list)
   }
   if ($vhost_cfg_prepend != undef) {
     validate_hash($vhost_cfg_prepend)
@@ -669,12 +669,12 @@ define nginx::resource::vhost (
     notify  => Class['::nginx::service'],
   }
 
-  if ($auth_basic_user_file != undef) {
+  if ($auth_basic_user_list != undef) {
     #Generate htpasswd with provided file-locations
     file { "${::nginx::config::conf_dir}/${name_sanitized}_htpasswd":
-      ensure => $ensure_real,
-      mode   => '0644',
-      source => $auth_basic_user_file,
+      ensure  => $ensure_real,
+      mode    => '0644',
+      content => $auth_basic_user_list,
     }
   }
 
