@@ -52,7 +52,7 @@ class nginx::package(
         fail('You must supply a value for $package_name on Solaris')
       }
 
-      package { 'nginx':
+      package { "$package_name":
         ensure => $package_ensure,
         name   => $package_name,
         source => $package_source,

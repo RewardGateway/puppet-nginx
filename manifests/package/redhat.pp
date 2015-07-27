@@ -39,7 +39,7 @@ class nginx::package::redhat (
           gpgcheck => '1',
           priority => '1',
           gpgkey   => 'http://nginx.org/keys/nginx_signing.key',
-          before   => Package['nginx'],
+          before   => Package["$package_name"],
         }
       }
       'nginx-mainline': {
@@ -50,7 +50,7 @@ class nginx::package::redhat (
           gpgcheck => '1',
           priority => '1',
           gpgkey   => 'http://nginx.org/keys/nginx_signing.key',
-          before   => Package['nginx'],
+          before   => Package["$package_name"],
         }
       }
       default: {
@@ -59,7 +59,7 @@ class nginx::package::redhat (
     }
   }
 
-  package { 'nginx':
+  package { "$package_name":
     ensure => $package_ensure,
     name   => $package_name,
   }
