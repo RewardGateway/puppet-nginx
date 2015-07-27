@@ -22,7 +22,7 @@ class nginx::package::debian(
 
   $distro = downcase($::operatingsystem)
 
-  package { 'nginx':
+  package { "$package_name":
     ensure => $package_ensure,
     name   => $package_name,
   }
